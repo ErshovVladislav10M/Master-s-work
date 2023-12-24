@@ -1,9 +1,8 @@
-import time
-import os
 import math
+import os
+import time
 
 import numpy as np
-
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder
 from picamera2.outputs import FileOutput
@@ -17,7 +16,7 @@ def start_video_capturing(motion_names, work_time):
     lsize = (320, 240)
     picam2 = Picamera2()
     video_config = picam2.create_video_configuration(main={"size": (1280, 720), "format": "RGB888"},
-                                                 lores={"size": lsize, "format": "YUV420"})
+                                                     lores={"size": lsize, "format": "YUV420"})
     picam2.configure(video_config)
     encoder = H264Encoder(1000000)
     picam2.start()
@@ -66,7 +65,6 @@ for name in motion_names:
     average_contour_point_locations, height, width = create(name + ".mp4", name + "_withContours.avi", 30)
     os.system(f"rm {name}.mp4")
 
-
 with open("cameraSettings/cameraSettings.txt", "r") as file:
     values = file.readline().split(";")
     camera_coordinate = (int(values[0]), int(values[1]), int(values[2]))
@@ -74,7 +72,6 @@ with open("cameraSettings/cameraSettings.txt", "r") as file:
     gamma = int(values[4])
     cube_side = int(values[5])
     num_cubes = int(values[6])
-
 
 guide_vectors = []
 for average_contour_point_location in average_contour_point_locations:
@@ -86,7 +83,6 @@ for average_contour_point_location in average_contour_point_locations:
                                                   math.pi * (vertical_angle + gamma) / 180)
 
     guide_vectors.append(guide_vector)
-
 
 with open("detectedObjects/cubesWithObjects.txt", "w") as file:
     for guide_vector in guide_vectors:
