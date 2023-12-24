@@ -2,16 +2,17 @@ import math
 import time
 
 import cv2
+
 from compute_angles import compute_angles_by_contour_points
+from compute_angles import compute_angles_by_guide_vector
 from compute_angles import compute_contour_points_by_angles
 from compute_angles import compute_guide_vector_by_angles
-from compute_angles import compute_angles_by_guide_vector
 
 
 def create_video_by_images(video_with_contours_location: str, images: list, fps: int):
     height, width, _ = images[0].shape
     video = cv2.VideoWriter(video_with_contours_location,
-                            cv2.VideoWriter.fourcc("M","J","P","G"),
+                            cv2.VideoWriter.fourcc("M", "J", "P", "G"),
                             # cv2.VideoWriter.fourcc(*"mp4v"),
                             fps,
                             (width, height))
@@ -56,7 +57,8 @@ def create(video_location, video_with_contours_location, fps):
             average_contour_point_location = compute_average_contour_point_locations(contour_point_locations)
             average_contour_point_locations.append(average_contour_point_location)
 
-            cv2.circle(frame1, (average_contour_point_location[0], average_contour_point_location[1]), 10, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.circle(frame1, (average_contour_point_location[0], average_contour_point_location[1]), 10, (255, 0, 0),
+                       2, cv2.LINE_AA)
 
         # cv2.drawContours(frame1, contour, -1, (0, 0, 255), 2)
         # cv2.imshow("image", frame1)
@@ -111,5 +113,5 @@ def compute_average_contour_point_locations(contour_point_locations):
         x_coordinates.append(contour_point[0])
         y_coordinates.append(contour_point[1])
 
-    return int(sum(x_coordinates) / len(x_coordinates)),\
+    return int(sum(x_coordinates) / len(x_coordinates)), \
         int(sum(y_coordinates) / len(y_coordinates))
