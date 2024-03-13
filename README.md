@@ -7,7 +7,7 @@ Cameras require periodic maintenance. During such maintenance, it is possible to
 
 ### Hardware
 - Raspberry Pi 4 platform with Raspberry Pi Camera Board v2.1
-- Operating system - Raspberry Pi OS
+- Operating system - Raspberry Pi OS (https://www.raspberrypi.com/software/)
 
 ### Install python libraries
 - From root:
