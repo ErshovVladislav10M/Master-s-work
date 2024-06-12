@@ -11,11 +11,13 @@ from compute_angles import compute_guide_vector_by_angles
 
 def create_video_by_images(video_with_contours_location: str, images: list, fps: int):
     height, width, _ = images[0].shape
-    video = cv2.VideoWriter(video_with_contours_location,
-                            cv2.VideoWriter.fourcc("M", "J", "P", "G"),
-                            # cv2.VideoWriter.fourcc(*"mp4v"),
-                            fps,
-                            (width, height))
+    video = cv2.VideoWriter(
+        video_with_contours_location,
+        cv2.VideoWriter.fourcc("M", "J", "P", "G"),
+        # cv2.VideoWriter.fourcc(*"mp4v"),
+        fps,
+        (width, height)
+    )
     _ = [video.write(i) for i in images]
     video.release()
 
@@ -57,8 +59,10 @@ def create(video_location, video_with_contours_location, fps):
             average_contour_point_location = compute_average_contour_point_locations(contour_point_locations)
             average_contour_point_locations.append(average_contour_point_location)
 
-            cv2.circle(frame1, (average_contour_point_location[0], average_contour_point_location[1]), 10, (255, 0, 0),
-                       2, cv2.LINE_AA)
+            cv2.circle(
+                frame1, (average_contour_point_location[0], average_contour_point_location[1]), 10, (255, 0, 0),
+                2, cv2.LINE_AA
+            )
 
         # cv2.drawContours(frame1, contour, -1, (0, 0, 255), 2)
         # cv2.imshow("image", frame1)
@@ -82,30 +86,35 @@ def create(video_location, video_with_contours_location, fps):
 
 
 def test_compute_contour_point(height, width, contour_point):
-    horizontal_angle, vertical_angle = compute_angles_by_contour_points(height,
-                                                                        width,
-                                                                        contour_point,
-                                                                        max_horizontal_angle=31.1,
-                                                                        max_vertical_angle=17.5)
+    horizontal_angle, vertical_angle = compute_angles_by_contour_points(
+        height,
+        width,
+        contour_point,
+        max_horizontal_angle=31.1,
+        max_vertical_angle=17.5
+    )
 
-    guide_vector = compute_guide_vector_by_angles(math.pi * horizontal_angle / 180,
-                                                  math.pi * vertical_angle / 180)
+    guide_vector = compute_guide_vector_by_angles(
+        math.pi * horizontal_angle / 180,
+        math.pi * vertical_angle / 180
+    )
 
     horizontal_angle, vertical_angle = compute_angles_by_guide_vector(guide_vector)
     horizontal_angle = horizontal_angle * 180 / math.pi
     vertical_angle = vertical_angle * 180 / math.pi
 
-    contour_point = compute_contour_points_by_angles(height,
-                                                     width,
-                                                     horizontal_angle,
-                                                     vertical_angle,
-                                                     45,
-                                                     40)
+    contour_point = compute_contour_points_by_angles(
+        height,
+        width,
+        horizontal_angle,
+        vertical_angle,
+        45,
+        40
+    )
 
     return contour_point
 
 
-# TODO: Сделать нормальную обработку для нескольких объектов
 def compute_average_contour_point_locations(contour_point_locations):
     x_coordinates = []
     y_coordinates = []

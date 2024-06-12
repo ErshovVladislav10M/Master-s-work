@@ -1,23 +1,27 @@
 import math
 
 
-def compute_angles_by_contour_points(height,
-                                     width,
-                                     contour_point,
-                                     max_horizontal_angle,
-                                     max_vertical_angle):
+def compute_angles_by_contour_points(
+    height,
+    width,
+    contour_point,
+    max_horizontal_angle,
+    max_vertical_angle
+):
     horizontal_angles = (contour_point[0] / width * 2 - 1) * max_horizontal_angle
     vertical_angles = (contour_point[1] / height * 2 - 1) * max_vertical_angle
 
     return horizontal_angles, vertical_angles
 
 
-def compute_contour_points_by_angles(height,
-                                     width,
-                                     horizontal_angle,
-                                     vertical_angle,
-                                     max_horizontal_angle,
-                                     max_vertical_angle):
+def compute_contour_points_by_angles(
+    height,
+    width,
+    horizontal_angle,
+    vertical_angle,
+    max_horizontal_angle,
+    max_vertical_angle
+):
     x = (horizontal_angle / max_horizontal_angle + 1) * width / 2
     y = (vertical_angle / max_vertical_angle + 1) * height / 2
     contour_point = (x, y)
@@ -77,7 +81,3 @@ def compute_angles_by_guide_vector(guide_vector: list):
         vertical_angle = math.atan(guide_vector[2] / guide_vector[0])
 
     return horizontal_angle, vertical_angle
-
-
-def compute_intersection_point(x1, y1, z1, guide_vector1, x2, y2, z2, guide_vector2):
-    pass
